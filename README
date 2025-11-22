@@ -1,0 +1,486 @@
+zuko
+
+(c) 2001-2023, zuko  / THC
+<zukonizim@gmail.com> https://github.com/zuko/thc-hydra
+
+AGPLv3 lisansı altında (LİSANS dosyasına bakın)
+
+Lütfen askeri veya gizli servis örgütlerinde veya yasa dışı amaçlarla kullanmayın.
+(Bu, yazarın isteğidir ve bağlayıcı değildir. Bu örgütlerde çalışan birçok kişi zaten yasalara ve etiğe önem vermez.
+Bunu görmezden gelirseniz "iyi" olanlardan biri olmazsınız.)
+
+NOT: Hayır, bu bir markdown belgesi değil! Eski usul!
+
+Hydra'nın en güncel GitHub sürümü doğrudan Docker üzerinden indirilebilir:
+
+GİRİŞ
+------------
+Her şifre güvenliği çalışmasının da gösterdiği gibi, en büyük güvenlik açıklarından biri şifrelerdir.
+Bu araç, araştırmacılara ve güvenlik danışmanlarına uzaktan bir sisteme yetkisiz erişim sağlamanın ne kadar kolay olduğunu gösterme olanağı sağlayan bir kavram kanıtı kodudur.
+
+BU ARAÇ SADECE YASAL AMAÇLAR İÇİNDİR!
+
+Halihazırda birkaç oturum açma korsanlığı aracı mevcuttur; ancak bunların hiçbiri birden fazla protokolü veya paralel bağlantıları desteklememektedir.
+
+Linux, Windows/Cygwin, Solaris, FreeBSD/OpenBSD, QNX (Blackberry 10) ve MacOS'ta temiz bir şekilde derlenmesi test edilmiştir.
+docker pull vanhauser/hydra
+Bu araç şu anda aşağıdaki protokolleri desteklemektedir:
+Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP,
+HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-POST, HTTP-PROXY,
+HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTPS-POST,
+HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MEMCACHED, MONGODB, MS-SQL, MYSQL, NCP, NNTP, Oracle Listener,
+Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, Radmin, RDP, Rexec, Rlogin,
+Rsh, RTSP, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP v1+v2+v3, SOCKS5,
+SSH (v1 ve v2), SSHKEY, Subversion, Teamspeak (TS2), Telnet, VMware-Auth,
+VNC ve XMPP.
+
+Ancak, yeni hizmetler için modül motoru oldukça kolay olduğundan, daha fazla hizmetin desteklenmesi uzun sürmeyecektir.
+Modülleri yazma, geliştirme veya düzeltme konusundaki yardımlarınız için çok teşekkür ederiz!! :-)
+
+NEREDEN ULAŞILIR
+------------
+Hydra'nın en yeni sürümünü/üretim sürümünü her zaman https://github.com/zukonizim/thc-hydra adresindeki proje sayfasında bulabilirsiniz.
+Yeni özellikler yeni hatalar içerir. Bazı şeyler çalışmayabilir!
+
+Alternatif olarak (ve daha kolayı), bir Docker konteyneri olarak çekebilirsiniz:
+```
+docker pull zukonizim/hydra
+```
+NASIL DERLENİR
+--------------
+Hydra'yı yapılandırmak, derlemek ve kurmak için şunu yazmanız yeterlidir:
+
+```
+./configure
+make
+make install
+```
+
+SSH modülünü istiyorsanız, sisteminizde libssh'yi (libssh2'yi değil!) kurmanız gerekir; https://www.libssh.org adresinden edinebilirsiniz. SSH v1 desteği için ayrıca cmake komut satırına "-DWITH_SSH1=On" seçeneğini eklemeniz gerekir.
+ÖNEMLİ: macOS'ta derleme yapıyorsanız, bunu yapmalısınız; libssh'yi Homebrew aracılığıyla kurmayın.
+
+Ubuntu/Debian kullanıyorsanız, bu işlem birkaç isteğe bağlı modül için gereken ek kütüphaneleri kuracaktır (bazılarının dağıtımınızda bulunmayabileceğini unutmayın):
+
+```
+apt-get install libssl-dev libssh-dev libidn11-dev libpcre3-dev \
+libgtk-3-dev libmysqlclient-dev libpq-dev libsvn-dev \
+firebird-dev libmemcached-dev libgpg-error-dev \
+libgcrypt11-dev libgcrypt20-dev freetds-dev
+```
+
+Bu, Oracle, SAP R/3, NCP ve Apple dosyalama protokolü hariç tüm isteğe bağlı modülleri ve özellikleri etkinleştirir. Bunları satıcının web sitelerinden indirip yüklemeniz gerekir.
+
+Diğer tüm Linux türevleri ve BSD tabanlı sistemler için sistem yazılım yükleyicisini kullanın ve yukarıdaki komutta olduğu gibi benzer adlara sahip kütüphaneleri arayın. Diğer tüm durumlarda, tüm kaynak kütüphaneleri indirmeniz ve manuel olarak derlemeniz gerekir.
+
+DESTEKLENEN PLATFORMLAR
+-------------------
+- Tüm UNIX platformları (Linux, *BSD, Solaris vb.)
+- MacOS (temelde bir BSD klonu)
+- Cygwin ile Windows (hem IPv4 hem de IPv6)
+- Linux, MacOS veya QNX tabanlı mobil sistemler (örneğin Android, iPhone, Blackberry 10, Zaurus, iPaq)
+
+NASIL KULLANILIR
+----------
+Sadece `hydra` yazarsanız, mevcut önemli seçeneklerin kısa bir özetini görürsünüz.
+Kullanılabilir tüm komut satırı seçeneklerini görmek için `./hydra -h` yazın.
+
+Kullanıcı adı/parola dosyası eklenmediğini unutmayın. Bunları kendiniz oluşturun.
+Ancak varsayılan bir parola listesi mevcuttur; liste oluşturmak için "dpl4hydra.sh" kullanın.
+
+Linux kullanıcıları için bir GTK GUI mevcuttur; `./xhydra` deneyin.
+
+Komut satırı kullanımı için sözdizimi aşağıdaki gibidir:
+Tek bir hedefe veya bir ağa saldırmak için yeni "://" stilini kullanabilirsiniz:
+hydra [bazı komut satırı seçenekleri] PROTOKOL://HEDEF:PORT/MODÜL-SEÇENEKLERİ
+Eski mod bunlar için de kullanılabilir ve ayrıca, hedeflerinizi bir metin dosyasından belirtmek isterseniz; Bunu *mutlaka* kullanmalısınız:
+
+```
+hydra [bazı komut satırı seçenekleri] [-s PORT] HEDEF PROTOKOL [MODÜL-SEÇENEKLERİ]
+```
+
+Komut satırı seçenekleri aracılığıyla hangi oturum açma bilgilerinin, hangi parolaların, SSL kullanılıp kullanılmayacağının, saldırı için kaç paralel görevin kullanılacağını vb. belirtirsiniz.
+
+PROTOKOL, saldırı için kullanmak istediğiniz protokoldür; örneğin ftp, SMTP,
+http-get veya daha birçok protokol mevcuttur.
+TARGET, saldırmak istediğiniz hedeftir.
+MODULE-OPTIONS, PROTOCOL modülü başına özel olan isteğe bağlı değerlerdir.
+
+İLK - hedefinizi seçin.
+Saldırmak istediğiniz hedefi belirlemek için üç seçeneğiniz var:
+1. Komut satırında tek bir hedef: IP veya DNS adresini girmeniz yeterli.
+2. Komut satırında bir ağ aralığı: "192.168.0.0/24" gibi bir CIDR belirtimi.
+3. Bir metin dosyasında ana bilgisayar listesi: giriş başına bir satır (aşağıya bakın)
+
+İKİNCİ - protokolünüzü seçin.
+Doğru bir bağlantı algılaması için güvenilir olmadığı için telnet'ten kaçınmaya çalışın. veya yanlış oturum açma girişimi.
+Hedefte hangi protokollerin etkin olduğunu görmek için bir port tarayıcısı kullanın.
+
+ÜÇÜNCÜ - modülün isteğe bağlı parametrelere sahip olup olmadığını kontrol edin
+hydra -U PROTOKOL
+örneğin, hydra -U smtp
+
+DÖRDÜNCÜ - hedef port
+Bu isteğe bağlıdır; port belirtilmezse, PROTOKOL için varsayılan ortak port kullanılır.
+SSL'nin kullanılmasını ("-S" seçeneği) belirtirseniz, varsayılan olarak SSL ortak portu kullanılır.
+"://" gösterimini kullanıyorsanız, saldırmak için IPv6 adresleri veya CIDR ("192.168.0.0/24") gösterimleri sağlamak istiyorsanız "[" "]" köşeli parantezleri kullanmalısınız:
+hydra [bazı komut satırı seçenekleri] ftp://[192.168.0.0/24]/
+hydra [bazı komut satırı seçenekleri] -6 smtps://[2001:db8::1]/NTLM
+
+Hydra'nın yaptığı her şeyin yalnızca IPv4 olduğunu unutmayın!
+IPv6 adreslerine saldırmak istiyorsanız, "-6" komut satırı seçeneğini eklemelisiniz.
+Bu durumda tüm saldırılar yalnızca IPv6'dır!
+
+Hedeflerinizi bir metin dosyası aracılığıyla sağlamak istiyorsanız, :// gösterimini kullanamazsınız, bunun yerine eski stili kullanın ve yalnızca protokolü (ve modül seçeneklerini) sağlayın:
+hydra [bazı komut satırı seçenekleri] -M targets.txt ftp
+Ayrıca, dosyadaki bir hedef girişinden sonra ":<port>" ekleyerek her hedef girişi için portu da sağlayabilirsiniz, örneğin:
+
+```
+foo.bar.com
+target.com:21
+unusual.port.com:2121
+default.used.here.com
+127.0.0.1
+127.0.0.1:2121
+```
+
+IPv6 hedefleri eklemek istiyorsanız, -6 seçeneğini belirtmeniz ve dosyada IPv6 adreslerini parantez içinde şu şekilde eklemeniz gerektiğini unutmayın:
+
+```
+foo.bar.com
+target.com:21
+[fe80::1%eth0]
+[2001::1]
+[2002::2]:8080
+[2a01:24a:133:0:00:123:ff:1a]
+```
+GİRİŞLER VE ŞİFRELER
+--------------------
+Girişler ve şifrelerle nasıl saldıracağınız konusunda birçok seçeneğiniz var.
+Giriş için -l ve şifre için -p kullanarak, Hydra'ya denenecek tek giriş ve/veya şifrenin bu olduğunu söylersiniz.
+Girişler için -L ve şifreler için -P kullanarak, girdileri içeren metin dosyaları sağlarsınız.
+Örneğin:
+
+```
+hydra -l admin -p password ftp://localhost/
+hydra -L default_logins.txt -p test ftp://localhost/
+hydra -l admin -P common_passwords.txt ftp://localhost/
+hydra -L logins.txt -P passwords.txt ftp://localhost/
+```
+
+Ayrıca, "-e" seçeneğiyle oturum açmaya dayalı parolaları deneyebilirsiniz. 
+"-e" seçeneğinin üç parametresi vardır: 
+
+```
+s - try the login as password
+n - try an empty password
+r - reverse the login and try it as a password
+```
+
+Örneğin, "try login as password" ve "empty password" denemek istiyorsanız, 
+komut satırında "-e sn" belirtebilirsiniz. 
+Ancak parolaları denemek için -p/-P'den iki mod daha vardır: 
+Kullanıcı adı ve parola çiftinin iki nokta üst üste ile ayrıldığı bir metin dosyası kullanabilirsiniz, 
+örneğin: 
+
+```
+admin:password
+test:test
+foo:bar
+```
+ Hydra ile birlikte gelen dpl4hydra.sh varsayılan hesap dosyası oluşturucusu 
+tarafından da oluşturulan yaygın bir varsayılan hesap stili listesidir . 
+Böyle bir metin dosyasını -C seçeneğiyle kullanırsınız - bu modda 
+-l/-L/-p/-P seçeneklerini kullanamayacağınızı unutmayın (ancak -e nsr kullanabilirsiniz). 
+Örnek: 
+
+```
+hydra -C default_accounts.txt ftp://localhost/
+```
+Ve son olarak, -x seçeneğiyle bir kaba kuvvet modu var (bunu 
+-p/-P/-C ile kullanamazsınız): 
+``` 
+-x minimum_length:maximum_length:charset 
+``` 
+Karakter kümesi tanımı küçük harfler için `a`, büyük harfler için `A`, 
+sayılar için `1` ve diğer her şey için, sağladığınız şey bunların gerçek temsilidir.
+örneğin:
+
+```
+-x 1:3:a generate passwords from length 1 to 3 with all lowercase letters
+-x 2:5:/ generate passwords from length 2 to 5 containing only slashes
+-x 5:8:A1 generate passwords from length 5 to 8 with uppercase and numbers
+-x '3:3:aA1&~#\\ "\'<{([-|_^@)]=}>$%*?./Â§,;:!`' -v generates length 3 passwords with all 95 characters, and verbose.
+```
+
+örneğin:
+
+```
+hydra -l ftp -x 3:3:a ftp://localhost/
+```
+
+hydra -l ftp -x 3:3:a ftp://localhost/ 
+
+MODÜLLER İÇİN ÖZEL SEÇENEKLER 
+--------------------------- 
+Üçüncü komut satırı parametresi (HEDEF HİZMET İSTEĞE BAĞLI) veya -m 
+komut satırı aracılığıyla Seçenek, bir modüle bir seçenek geçirebilirsiniz. 
+Birçok modül bunu kullanır; birkaçı gerektirir! 
+
+Bir modülün özel seçeneğini görmek için şunu yazın: 
+
+  hydra -U <modül> 
+
+örn. 
+
+  ./hydra -U http-post-form Özel seçenekler, -m parametresi aracılığıyla, 3. komut satırı 
+seçeneği olarak veya service://target/option biçiminde 
+
+geçirilebilir . 
+Örnekler (hepsi eşittir): 
+``` 
+./hydra -l test -p test -m PLAIN 127.0.0.1 imap 
+./hydra -l test -p test 127.0.0.1 imap PLAIN 
+./hydra -l test -p test imap://127.0.0.1/PLAIN  
+
+İPTAL EDİLEN/ÇÖKEN BİR OTURUMU GERİ YÜKLEME 
+----------------------------------- 
+Hydra, Control-C ile iptal edildiğinde, öldürüldüğünde veya Çökme durumunda, 
+oturumu geri yüklemek 
+için gerekli tüm bilgileri içeren bir "hydra.restore" dosyası bırakır . Bu oturum dosyası her 5 dakikada bir yazılır. 
+NOT: hydra.restore dosyası farklı bir platforma kopyalanamaz (örneğin, 
+küçük endian'dan büyük endian'a veya Solaris'ten AIX'e) 
+BİR PROXY ÜZERİNDEN NASIL TARAMA/KIRMA YAPILIR 
+-------------------------------- 
+HYDRA_PROXY_HTTP ortam değişkeni, web proxy'sini tanımlar (bu 
+yalnızca HTTP hizmetleri için çalışır!). 
+Aşağıdaki sözdizimi geçerlidir: 
+``` 
+HYDRA_PROXY_HTTP="http://123.45.67.89:8080/" 
+HYDRA_PROXY_HTTP="http://login:password@123.45.67.89:8080/" 
+HYDRA_PROXY_HTTP="proxylist.txt" 
+``` 
+Son örnek, 64'e kadar proxy içeren bir metin dosyasıdır ( 
+diğer örneklerle aynı biçim tanımına sahiptir). 
+Diğer tüm hizmetler için, tarama/kırılma için HYDRA_PROXY değişkenini kullanın. 
+Aynı sözdizimini kullanır. Örneğin: 
+``` 
+HYDRA_PROXY=[connect|socks4|socks5]://[login:password@]proxy_addr:proxy_port 
+``` 
+Örneğin: 
+``` 
+HYDRA_PROXY=connect://proxy.anonymizer.com:8000 
+HYDRA_PROXY=socks4://auth:pw@127.0.0.1:1080 
+HYDRA_PROXY=socksproxylist.txt
+
+
+
+
+
+
+ 
+
+EK İPUÇLARI 
+---------------- 
+* Şifre dosyalarınızı olasılıklarına göre sıralayın ve 
+  şifreleri çok daha hızlı bulmak için -u seçeneğini kullanın! 
+* Sözlük dosyalarınızı benzersiz hale getirin! Bu size çok zaman kazandırabilir :-) 
+    cat words.txt | sort | uniq > dictionary.txt 
+* Hedefin bir parola politikası kullandığını biliyorsanız (kullanıcıların 
+  yalnızca en az 6 uzunluğunda, en az bir 
+  harf ve bir rakam içeren bir parola seçmesine izin veren vb.), 
+  parola listesini azaltmak için hydra paketiyle birlikte gelen pw-inspector aracını kullanın: 
+    cat dictionary.txt | pw-inspector -m 6 -c 2 -n > passlist.txt 
+
+
+SONUÇLAR ÇIKTI 
+--------------- 
+
+Sonuçlar diğer bilgilerle birlikte stdio'ya çıktı olarak verilir. -o 
+komut satırı seçeneği aracılığıyla sonuçlar bir dosyaya da yazılabilir. -b kullanılarak 
+çıktının biçimi belirtilebilir. Şu anda şunlar desteklenmektedir: 
+
+* `text` - düz metin biçimi 
+* `jsonv1` - şemanın 1.x sürümünü kullanan JSON verileri (aşağıda tanımlanmıştır). 
+* `json` - şemanın en son sürümünü kullanan JSON verileri; şu anda 
+             yalnızca 1 sürümü vardır 
+
+. JSON çıktısı, 
+Hydra başlatılırken ciddi hatalar varsa sonuç dosyası geçerli JSON olmayabilir .
+
+JSON Şeması 
+----------- 
+İşte JSON çıktısının bir örneği. Bazı alanlarla ilgili notlar: * `errormessages` - 
+   Hydra'nın çalışmasının sonunda 
+
+normalde stderr'e yazdırılan sıfır veya daha fazla dizeden oluşan bir dizi . Metin oldukça serbest biçimlidir. 
+* `success` - Hydra'nın hatasız bir şekilde çalışıp çalışmadığını gösterir (**Şifreler algılandıysa DEĞİL** ). Bu parametre 
+   , tamamlanmaya bağlı olarak 
+   JSON değeri `true` veya `false` olur . 
+* `quantityfound` - Kaç kullanıcı adı+şifre kombinasyonu keşfedildi. 
+* `jsonoutputversion` - Şemanın sürümü, 1.00, 1.01, 1.11, 2.00, 2.03, vb. Hydra, 
+   alt akış işlemcileri için işi kolaylaştırmak amacıyla 
+   sürümün ikinci tuple'ını her zaman iki basamaklı yapacaktır ( v1.1 ve 
+   v1.10 karşılaştırması). Alt düzey sürümler eklemeli olduğundan, 1.02 sürümü 
+   1.00 sürümünden daha fazla alan içerecek ve geriye dönük uyumlu olacaktır. 2.x sürümü, 
+   1.x sürümü çıktısındaki bir şeyi bozacaktır. 
+1.00 sürümü örneği:
+```
+{
+    "errormessages": [
+        "[ERROR] Error Message of Something",
+        "[ERROR] Another Message",
+        "These are very free form"
+    ],
+    "generator": {
+        "built": "2021-03-01 14:44:22",
+        "commandline": "hydra -b jsonv1 -o results.json ... ...",
+        "jsonoutputversion": "1.00",
+        "server": "127.0.0.1",
+        "service": "http-post-form",
+        "software": "Hydra",
+        "version": "v8.5"
+    },
+    "quantityfound": 2,
+    "results": [
+        {
+            "host": "127.0.0.1",
+            "login": "bill@example.com",
+            "password": "bill",
+            "port": 9999,
+            "service": "http-post-form"
+        },
+        {
+            "host": "127.0.0.1",
+            "login": "joe@example.com",
+            "password": "joe",
+            "port": 9999,
+            "service": "http-post-form"
+        }
+    ],
+    "success": false
+}
+```
+
+
+HIZ 
+----- 
+Paralelleştirme özelliği sayesinde, bu şifre kırma aracı çok 
+hızlı olabilir; ancak bu, protokole bağlıdır. En hızlıları genellikle POP3 
+ve FTP'dir. 
+Hızlandırmak için görev seçeneği (-t) ile denemeler yapın! Ne kadar yüksekse o kadar 
+hızlıdır ;-) (ama çok yüksekse hizmeti devre dışı bırakır) 
+
+
+
+İSTATİSTİKLER 
+---------- 
+Yerel bilgisayarda, 295 giriş içeren bir "-C DOSYASI" ile SuSE Linux 7.2 çalıştırıldı 
+(294 geçersiz oturum açma denemesi, 1 geçerli). Her test üç kez çalıştırıldı 
+(sadece "1 görev" için yalnızca bir kez) ve ortalama not alındı. 
+
+``` 
+			PARALLELTASKS 
+HİZMETİ 1 4 8 16 32 50 64 100 128 
+------- ------------------------------------------------------------------------- 
+telnet 23:20 5:58 2:58 1:34 1:05 0:33 0:45* 0:25* 0:55* 
+ftp 45:54 11:51 5:54 3:06 1:25 0:58 0:46 0:29 0:32 
+pop3 92:10 27:16 13:56 6:42 2:55 1:57 1:24 1:14 0:50 
+imap 31:05 7:41 3:51 1:58 1:01 0:39 0:32 0:25 0:21 
+``` 
+
+(*) 
+Not: Telnet zamanlamaları 64 ile 128 görev için ÇOK farklı olabilir! Örneğin, 
+128 görevin dört kez çalıştırılması, 28 ile 97 saniye arasında zamanlamalara yol açtı! 
+Bunun nedeni bilinmiyor... 
+
+görev başına tahmin (yuvarlanmış): 
+
+  295 74 38 19 10 6 5 3 3 
+
+bağlantı başına olası tahmin (sunucu yazılımına ve yapılandırmasına bağlıdır):
+
+  telnet 4 
+	ftp 6 
+	pop3 1 
+	imap 3 
+
+
+
+HATALAR VE ÖZELLİKLER 
+--------------- 
+Hydra: 
+Hata bulursanız veya yeni bir modül yazdıysanız bana veya David'e e-posta gönderin. 
+zukonizim@gmail.com(ve konu satırına "antispam" yazın)
+
+
+
+zukonizim@gmail.com adresine göndereceğiniz e-postaları şifrelemek için PGP kullanmalısınız: 
+
+``` 
+-----BEGIN PGP PUBLIC KEY BLOCK----- 
+Sürüm: GnuPG v3.3.3 (vh@thc.org) 
+
+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 
+zB3yrr+vYBT0uDWmxwPjiJs= 
+=ytEf 
+-----PGP GENEL ANAHTAR BLOĞU SONU----- 
+```
+  
