@@ -1,7 +1,7 @@
-Hydra için değişiklik günlüğü
+# Hydra için değişiklik günlüğü
 -------------------
 
-Sürüm 9.7-dev
+## Sürüm 9.7-dev
 * Elboulangero tarafından xhydra için GTK3 desteği
 * mongo v2 desteği (devjunix'e teşekkürler)
 
@@ -17,7 +17,7 @@ Sürüm 9.6
 * http 403 desteği
 ! Tüm çekme istekleri için teşekkürler!
 
-Sürüm 9.5
+## Sürüm 9.5
 * birçok modül -W'yi desteklemiyordu (bir kütüphane kullananların hepsi)
   Bağlantı). Hepsi (ya da çoğu?) artık düzelmiş olmalı.
 * http-formu:
@@ -30,7 +30,7 @@ Sürüm 9.5
 * rdp: Bir kullanıcının devre dışı bırakıldığını vb. belirten daha fazla dönüş kodunu algılar.
 
 
-Sürüm 9.4
+## Sürüm 9.4
 * pcre/pcre3 Debian'dan kaldırılacağı için pcre/pcre3'ten pcre2'ye geçildi
 * Garip RTSP sunucuları için küçük bir düzeltme
 * Hydra'ya şunu söylemek için http-post-form modülüne isteğe bağlı "2=" parametresi eklendi
@@ -38,7 +38,7 @@ Sürüm 9.4
 * Daha iyi uyumluluk için wait3 yerine waitpid kullanıldı
 
 
-Sürüm 9.3
+## Sürüm 9.3
 * Xcode derlemesini destekler
 * yeni modül: ultimaiiii tarafından geliştirilen cobaltstrike, teşekkürler!
 * SSH'nin -M veya ip/range'i desteklemesi için düzeltme
@@ -53,7 +53,7 @@ Sürüm 9.3
 * "make uninstall" eklendi
 
 
-Sürüm 9.2
+## Sürüm 9.2
 * http-post-form isteğe bağlı parametreleri için düzeltme
 * xhydra için de gcc 10 desteğini etkinleştirin :)
 * msys desteği
@@ -61,7 +61,7 @@ Sürüm 9.2
 * Host için IPv6 desteği: http tabanlı modüller için başlık
 
 
-Sürüm 9.1
+## Sürüm 9.1
 * rdb: libfreerdp3 desteği (animetauren'e teşekkürler)
 * yeni modül: smb3'ü de destekleyen smb2 (libsmbclient-dev'i kullanır) (modül için Karim Kanso'ya teşekkürler!)
 * oracle: başarı koşulu eklendi (kazkansouh'a teşekkürler), Cygwin'de derlendi (maaaaz'a teşekkürler)
@@ -78,7 +78,7 @@ Sürüm 9.1
 * .clang-format eklendi ve tüm kod biçimlendirildi
 
 
-Sürüm 9.0
+## Sürüm 9.0
 * rdp: FreeRDP kütüphanesini kullanacak şekilde yenilenen rdp modülü (yama için loianhtuan@github'a teşekkürler!)
 * Memcached modülü eklendi
 * Mongodb modülü eklendi
@@ -91,12 +91,12 @@ Sürüm 9.0
 
 
 
-Sürüm 8.9.1
+## Sürüm 8.9.1
 * rdp hata mesajı için açıklama
 * CIDR gösterimi (hydra -l test -p test 192.168.0.0/24 ftp) algılanmadı, düzeltildi
 
 
-Sürüm 8.8
+## Sürüm 8.8
 * Yeni web sayfası: https://github.com/vanhauser-thc/thc-hydra
 * Bilinen sorunlarla birlikte PROBLEMS dosyası eklendi
 * rdp: Mevcut protokolü desteklemediği için modülü devre dışı bıraktım. Eklemek isterseniz benimle iletişime geçin.
@@ -113,7 +113,7 @@ Sürüm 8.8
 * crondaemon tarafından birçok uyarı düzeltmesi yapıldı
 
 
-Sürüm 8.6
+## Sürüm 8.6
 * catatonic prime tarafından radmin2 modülü eklendi - harika çalışma!
 * smb modülü artık SMBv1'in sunucu tarafından desteklenip desteklenmediğini ve imzalama gerekip gerekmediğini kontrol ediyor
 * http-form modülü artık 6000 bayta kadar URL'leri destekliyor (yama için petrock6@github'a teşekkürler)
@@ -125,7 +125,7 @@ Sürüm 8.6
 * Yardım çıktısını bireysel modüle taşıyan Diadlo@github tarafından yapılan bir yama birleştirildi
 
 
-Sürüm 8.5
+## Sürüm 8.5
 * Yeni komut satırı seçeneği:
    -b : -o çıktı dosyası için biçimlendirme seçeneği (şimdilik sadece json, diğerlerini destekleyen yamalar için mutluyum :) ) - yama için veggiespam'e teşekkürler
 * ./configure artık mevcutsa CC ortam değişkenini dikkate alıyor
@@ -137,7 +137,7 @@ Sürüm 8.5
 * Eksik komut satırı seçenekleriyle güncellenmiş man sayfası
 
 
-Sürüm 8.4
+## Sürüm 8.4
 ! RDP modülünün bazen güvenilir bir şekilde çalışmadığı, büyük olasılıkla yeni Windows sürümlerinde çalışmadığı yönünde raporlar geldi. Lütfen test edin, raporlayın ve mümkünse bir düzeltme gönderin
 * Proxy desteği yeniden uygulandı:
   - HYDRA_PROXY[_HTTP] ortamı, 64'e kadar giriş içeren bir metin dosyası olabilir
@@ -156,14 +156,14 @@ Sürüm 8.4
 * Bilgisiz kullanıcılar için özel hata mesajı eklendi :)
 
 
-Sürüm 8.3
+## Sürüm 8.3
 * Yakında çıkacak olan OpenSSL 1.1 desteği eklendi. Test edilmesi gerekiyor.
 * Hydra yeniden yapma hatası düzeltildi (sorun #113)
 * Yeni Hydra özellikleri ve seçenekleri için xhydra güncellendi
 * Komut satırında daha fazla hata kontrolü
 * Gereksiz soketlerin kapatıldığından emin olundu
 
-Sürüm 8.2
+## Sürüm 8.2
 * RTSP modülü eklendi, jjavi89'a sağladığı için teşekkürler!
 * Hydra'nın bağlanmayı durdurmasını düzelten ssh için yama eklendi, yama için ShantonRU'ya teşekkürler
 * TLS'yi desteklemeyen SSL sunucularını desteklemek için Hydra'ya yeni -O seçeneği eklendi
@@ -186,7 +186,7 @@ Sürüm 8.2
 * ... yamalarınız mı?
 
 
-Sürüm 8.1
+## Sürüm 8.1
 * İş ortağım David Maciejak başka bir işe ve ülkeye taşındı ve artık Hydra'ya yardımcı olamıyor - ne yazık ki! Her şeyin gönlünüzce olmasını dilerim!
 * Ander Juaristi'nin http-form-* için h/H başlık seçeneklerini ekleyen yaması eklendi, harika çalışma, teşekkürler!
 * -M seçeneği düzeltildi, artık birçok hedefle çalışıyor :-)
@@ -202,7 +202,7 @@ Sürüm 8.1
 * RDP modülü port seçeneğini destekleyecek şekilde düzeltildi (and.enshin(at)gmail.com'a teşekkürler)
 
 
-Sürüm 8.0
+## Sürüm 8.0
 ! Geliştirme herkese açık bir github deposuna taşındı: https://github.com/vanhauser-thc/thc-hydra
 * Redis için modül eklendi (Alejandro Ramos tarafından gönderildi, teşekkürler!)
 * SMB modülü için Unicode desteği ekleyen yama eklendi (Max Kosmach'a teşekkürler)
@@ -223,12 +223,11 @@ Sürüm 8.0
 * Kod Coverity ile kontrol edildi. Küçük ve orta ölçekli birçok sorun düzeltildi.
 
 
-Sürüm 7.6
-* Shivang Desai <shivang.ice.2010@gmail.com> tarafından yazılan bir betiğe dayanan Hydra için bir sihirbaz betiği eklendi
+## Sürüm 7.6
+* Shivang Desai <shiv> tarafından yazılan bir betiğe dayanan Hydra için bir sihirbaz betiği eklendi
 * Siemens S7-300 için modül eklendi (Alexander Timorin ve Sergey Gordeychik tarafından gönderildi, teşekkürler!)
 * HTTP HEAD/GET: MD5 özeti yetkilendirmesi çalışmıyordu, düzeltildi (Paul Kenyon'a teşekkürler)
 * SMTP Enum: HELO artık her zaman gönderiliyor, 500 hata tespiti daha iyi
-* hydra ana:
    - Bir port sağlandığında IPv6 adres ayrıştırmasında oluşan bir hata düzeltildi
    - pop3, imap ve smtp protokol kullanımı için bilgi mesajı eklendi
 * hydra GTK: bazı hizmetler atlandı, eklendi
