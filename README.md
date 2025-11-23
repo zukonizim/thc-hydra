@@ -1,4 +1,4 @@
-zuko
+## ZUKO
 
 (c) 2001-2023, zuko  / THC
 <zukonizim@gmail.com> https://github.com/zuko/thc-hydra
@@ -13,7 +13,7 @@ NOT: Hayır, bu bir markdown belgesi değil! Eski usul!
 
 Hydra'nın en güncel GitHub sürümü doğrudan Docker üzerinden indirilebilir:
 
-GİRİŞ
+## GİRİŞ
 ------------
 Her şifre güvenliği çalışmasının da gösterdiği gibi, en büyük güvenlik açıklarından biri şifrelerdir.
 Bu araç, araştırmacılara ve güvenlik danışmanlarına uzaktan bir sisteme yetkisiz erişim sağlamanın ne kadar kolay olduğunu gösterme olanağı sağlayan bir kavram kanıtı kodudur.
@@ -37,7 +37,7 @@ VNC ve XMPP.
 Ancak, yeni hizmetler için modül motoru oldukça kolay olduğundan, daha fazla hizmetin desteklenmesi uzun sürmeyecektir.
 Modülleri yazma, geliştirme veya düzeltme konusundaki yardımlarınız için çok teşekkür ederiz!! :-)
 
-NEREDEN ULAŞILIR
+## NEREDEN ULAŞILIR
 ------------
 Hydra'nın en yeni sürümünü/üretim sürümünü her zaman https://github.com/zukonizim/thc-hydra adresindeki proje sayfasında bulabilirsiniz.
 Yeni özellikler yeni hatalar içerir. Bazı şeyler çalışmayabilir!
@@ -46,7 +46,7 @@ Alternatif olarak (ve daha kolayı), bir Docker konteyneri olarak çekebilirsini
 ```
 docker pull zukonizim/hydra
 ```
-NASIL DERLENİR
+## NASIL DERLENİR
 --------------
 Hydra'yı yapılandırmak, derlemek ve kurmak için şunu yazmanız yeterlidir:
 
@@ -72,14 +72,14 @@ Bu, Oracle, SAP R/3, NCP ve Apple dosyalama protokolü hariç tüm isteğe bağl
 
 Diğer tüm Linux türevleri ve BSD tabanlı sistemler için sistem yazılım yükleyicisini kullanın ve yukarıdaki komutta olduğu gibi benzer adlara sahip kütüphaneleri arayın. Diğer tüm durumlarda, tüm kaynak kütüphaneleri indirmeniz ve manuel olarak derlemeniz gerekir.
 
-DESTEKLENEN PLATFORMLAR
+## DESTEKLENEN PLATFORMLAR
 -------------------
 - Tüm UNIX platformları (Linux, *BSD, Solaris vb.)
 - MacOS (temelde bir BSD klonu)
 - Cygwin ile Windows (hem IPv4 hem de IPv6)
 - Linux, MacOS veya QNX tabanlı mobil sistemler (örneğin Android, iPhone, Blackberry 10, Zaurus, iPaq)
 
-NASIL KULLANILIR
+## NASIL KULLANILIR
 ----------
 Sadece `hydra` yazarsanız, mevcut önemli seçeneklerin kısa bir özetini görürsünüz.
 Kullanılabilir tüm komut satırı seçeneklerini görmek için `./hydra -h` yazın.
@@ -105,21 +105,21 @@ http-get veya daha birçok protokol mevcuttur.
 TARGET, saldırmak istediğiniz hedeftir.
 MODULE-OPTIONS, PROTOCOL modülü başına özel olan isteğe bağlı değerlerdir.
 
-İLK - hedefinizi seçin.
+## İLK - hedefinizi seçin.
 Saldırmak istediğiniz hedefi belirlemek için üç seçeneğiniz var:
 1. Komut satırında tek bir hedef: IP veya DNS adresini girmeniz yeterli.
 2. Komut satırında bir ağ aralığı: "192.168.0.0/24" gibi bir CIDR belirtimi.
 3. Bir metin dosyasında ana bilgisayar listesi: giriş başına bir satır (aşağıya bakın)
 
-İKİNCİ - protokolünüzü seçin.
+## İKİNCİ - protokolünüzü seçin.
 Doğru bir bağlantı algılaması için güvenilir olmadığı için telnet'ten kaçınmaya çalışın. veya yanlış oturum açma girişimi.
 Hedefte hangi protokollerin etkin olduğunu görmek için bir port tarayıcısı kullanın.
 
-ÜÇÜNCÜ - modülün isteğe bağlı parametrelere sahip olup olmadığını kontrol edin
+## ÜÇÜNCÜ - modülün isteğe bağlı parametrelere sahip olup olmadığını kontrol edin
 hydra -U PROTOKOL
 örneğin, hydra -U smtp
 
-DÖRDÜNCÜ - hedef port
+## DÖRDÜNCÜ - hedef port
 Bu isteğe bağlıdır; port belirtilmezse, PROTOKOL için varsayılan ortak port kullanılır.
 SSL'nin kullanılmasını ("-S" seçeneği) belirtirseniz, varsayılan olarak SSL ortak portu kullanılır.
 "://" gösterimini kullanıyorsanız, saldırmak için IPv6 adresleri veya CIDR ("192.168.0.0/24") gösterimleri sağlamak istiyorsanız "[" "]" köşeli parantezleri kullanmalısınız:
@@ -153,7 +153,7 @@ target.com:21
 [2002::2]:8080
 [2a01:24a:133:0:00:123:ff:1a]
 ```
-GİRİŞLER VE ŞİFRELER
+## GİRİŞLER VE ŞİFRELER
 --------------------
 Girişler ve şifrelerle nasıl saldıracağınız konusunda birçok seçeneğiniz var.
 Giriş için -l ve şifre için -p kullanarak, Hydra'ya denenecek tek giriş ve/veya şifrenin bu olduğunu söylersiniz.
@@ -220,7 +220,7 @@ hydra -l ftp -x 3:3:a ftp://localhost/
 
 hydra -l ftp -x 3:3:a ftp://localhost/ 
 
-MODÜLLER İÇİN ÖZEL SEÇENEKLER 
+## MODÜLLER İÇİN ÖZEL SEÇENEKLER 
 --------------------------- 
 Üçüncü komut satırı parametresi (HEDEF HİZMET İSTEĞE BAĞLI) veya -m 
 komut satırı aracılığıyla Seçenek, bir modüle bir seçenek geçirebilirsiniz. 
@@ -279,7 +279,7 @@ HYDRA_PROXY=socksproxylist.txt
 
  
 
-EK İPUÇLARI 
+## EK İPUÇLARI 
 ---------------- 
 * Şifre dosyalarınızı olasılıklarına göre sıralayın ve 
   şifreleri çok daha hızlı bulmak için -u seçeneğini kullanın! 
@@ -292,7 +292,7 @@ EK İPUÇLARI
     cat dictionary.txt | pw-inspector -m 6 -c 2 -n > passlist.txt 
 
 
-SONUÇLAR ÇIKTI 
+## SONUÇLAR ÇIKTI 
 --------------- 
 
 Sonuçlar diğer bilgilerle birlikte stdio'ya çıktı olarak verilir. -o 
@@ -307,7 +307,7 @@ komut satırı seçeneği aracılığıyla sonuçlar bir dosyaya da yazılabilir
 . JSON çıktısı, 
 Hydra başlatılırken ciddi hatalar varsa sonuç dosyası geçerli JSON olmayabilir .
 
-JSON Şeması 
+## JSON Şeması 
 ----------- 
 İşte JSON çıktısının bir örneği. Bazı alanlarla ilgili notlar: * `errormessages` - 
    Hydra'nın çalışmasının sonunda 
@@ -362,7 +362,7 @@ normalde stderr'e yazdırılan sıfır veya daha fazla dizeden oluşan bir dizi 
 ```
 
 
-HIZ 
+## HIZ 
 ----- 
 Paralelleştirme özelliği sayesinde, bu şifre kırma aracı çok 
 hızlı olabilir; ancak bu, protokole bağlıdır. En hızlıları genellikle POP3 
@@ -372,7 +372,7 @@ hızlıdır ;-) (ama çok yüksekse hizmeti devre dışı bırakır)
 
 
 
-İSTATİSTİKLER 
+## İSTATİSTİKLER 
 ---------- 
 Yerel bilgisayarda, 295 giriş içeren bir "-C DOSYASI" ile SuSE Linux 7.2 çalıştırıldı 
 (294 geçersiz oturum açma denemesi, 1 geçerli). Her test üç kez çalıştırıldı 
@@ -406,7 +406,7 @@ bağlantı başına olası tahmin (sunucu yazılımına ve yapılandırmasına b
 
 
 
-HATALAR VE ÖZELLİKLER 
+## HATALAR VE ÖZELLİKLER 
 --------------- 
 Hydra: 
 Hata bulursanız veya yeni bir modül yazdıysanız bana veya David'e e-posta gönderin. 
@@ -414,7 +414,7 @@ zukonizim@gmail.com(ve konu satırına "antispam" yazın)
 
 
 
-zukonizim@gmail.com adresine göndereceğiniz e-postaları şifrelemek için PGP kullanmalısınız: 
+## zukonizim@gmail.com adresine göndereceğiniz e-postaları şifrelemek için PGP kullanmalısınız: 
 
 ``` 
 -----BEGIN PGP PUBLIC KEY BLOCK----- 
