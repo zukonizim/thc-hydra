@@ -1,0 +1,14 @@
+Hydra-GTK
+
+Gtk+3 frontend for thc-hydra
+
+
+
+To install just do a:
+
+./autogen.sh
+./configure
+ make
+ su root
+ make install
+**Kolayca yapılabilir... Bunun çalışması için thc-hydra'nın yüklü olması gerekiyor.**
