@@ -11,4 +11,4 @@ To install just do a:
  make
  su root
  make install
-**Kolayca yapılabilir... Bunun çalışması için thc-hydra'nın yüklü olması gerekiyor.**
+Kolayca yapılabilir... Bunun çalışması için thc-hydra'nın yüklü olması gerekiyor.
